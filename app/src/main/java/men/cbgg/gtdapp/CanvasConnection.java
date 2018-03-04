@@ -34,7 +34,7 @@ public class CanvasConnection {
         StrictMode.setThreadPolicy(policy);
 
         String canvasBaseUrl = "https://canvas.ou.edu";
-        oauthToken = new NonRefreshableOauthToken("8808~wPmwbgoCu4mmPi8k9cWEl912izJs1qXuNefTrJ0YQRNK1BeAVSIKsXpzYEQ3ntg5");
+        oauthToken = new NonRefreshableOauthToken("SECRET_OAUTH_KEY");
         apiFactory = new CanvasApiFactory(canvasBaseUrl);
     }
 
