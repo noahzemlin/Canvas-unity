@@ -43,7 +43,7 @@ public class TaskArrayAdapter extends ArrayAdapter {
 
         //this code sets the values of the objects to values from the arrays
         nameField.setText(((Task)getItem(position)).name);
-        dateField.setText(df.format( ((Task)getItem(position)).getDate() ));
+        dateField.setText( ((Task)getItem(position)).date );
 
         return rowView;
 

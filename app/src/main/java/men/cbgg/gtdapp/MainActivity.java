@@ -6,19 +6,27 @@ import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import org.threeten.bp.DateTimeUtils;
+import org.threeten.bp.ZonedDateTime;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Date;
 
 import edu.ksu.canvas.model.Course;
+import men.cbgg.gtdapp.ListViewRows.ChatArrayAdapter;
 import men.cbgg.gtdapp.ListViewRows.ClassArrayAdapter;
+import men.cbgg.gtdapp.ListViewRows.Message;
 import men.cbgg.gtdapp.ListViewRows.Task;
 import men.cbgg.gtdapp.ListViewRows.TaskArrayAdapter;
 import men.cbgg.gtdapp.Storage.Storage;
@@ -34,7 +42,11 @@ public class MainActivity extends AppCompatActivity {
     private ConstraintLayout chatpage;
     private ConstraintLayout todopage;
     private ListView mainList;
+    private ListView classList;
+    private ListView chatList;
     private TaskArrayAdapter listAdapter;
+
+    public static Task openTask = null;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -93,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 TaskCache.addTask(new Task(
                         "Task #" + (int)(Math.random() * 50 + 1),
-                        new Date(118, 2, (int)(Math.random() * 30)+1)
+                        new Date(118, 2, (int)(Math.random() * 30)+1).toString()
                 ));
             }
         });
@@ -102,13 +114,26 @@ public class MainActivity extends AppCompatActivity {
         todopage = findViewById(R.id.todopage);
         chatpage = findViewById(R.id.chatpage);
 
-        mainList = (ListView) findViewById( R.id.mainList );
-
         ArrayList<Course> classes = CanvasConnection.getUserCourses();
 
-        ((ListView)findViewById(R.id.classList)).setAdapter(new ClassArrayAdapter(this, classes));
+        chatList = findViewById(R.id.chatList);
 
-        ((ListView)findViewById(R.id.classList)).setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        ArrayList<Message> messages = new ArrayList<Message>();
+
+        messages.add(new Message(null, "heyo bud"));
+        messages.add(new Message("Tyler", "heyo pal"));
+        messages.add(new Message(null, "can i cheat off you?"));
+        messages.add(new Message("Tyler", "no"));
+        messages.add(new Message(null, "did u finish the homework?"));
+        messages.add(new Message("Tyler", "Not yet... when is it due?"));
+
+        chatList.setAdapter(new ChatArrayAdapter(this, messages));
+
+        classList = findViewById(R.id.classList);
+
+        classList.setAdapter(new ClassArrayAdapter(this, classes));
+
+        classList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
@@ -119,6 +144,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        mainList = findViewById( R.id.mainList );
+
         // Set the ArrayAdapter as the ListView's adapter.
         mainList.setAdapter( listAdapter );
 
@@ -128,9 +155,23 @@ public class MainActivity extends AppCompatActivity {
                                     long id) {
                 Intent intent = new Intent(MainActivity.this, ViewTask.class);
                 intent.putExtra("id", TaskCache.getTasks().get(position).id);
+                openTask = TaskCache.getTasks().get(position);
                 startActivity(intent);
             }
         });
+
+
+        ((Button)(findViewById( R.id.chatbox_send))).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                ChatArrayAdapter.addMessage(null, ((EditText)findViewById( R.id.chatbox)).getText().toString());
+                ((EditText)findViewById( R.id.chatbox)).getText().clear();
+
+            }
+        });
+
     }
+
 
 }

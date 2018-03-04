@@ -33,7 +33,7 @@ public class TaskCache {
         return _instance.list.iterator();
     }
 
-    public static void deleteTask(int id) {
+    public static void deleteTask(long id) {
         for (int i=0; i<_instance.list.size(); i++) {
             if (_instance.list.get(i).id == id) {
                 _instance.listAdapter.deleteTask(_instance.list.get(i));
@@ -44,7 +44,7 @@ public class TaskCache {
         Storage.writeFile();
     }
 
-    public static Task getTaskById(int id) {
+    public static Task getTaskById(long id) {
         for (Task task : _instance.list) {
             if(task.id == id){
                 return task;

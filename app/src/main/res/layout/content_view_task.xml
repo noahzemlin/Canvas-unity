@@ -8,6 +8,16 @@
     tools:context="men.cbgg.gtdapp.ViewTask"
     tools:showIn="@layout/activity_view_task">
 
+    <EditText
+        android:id="@+id/dateDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="0dp" />
+
     <Button
         android:id="@+id/deleteButton"
         style="@style/Widget.AppCompat.Button.Colored"
@@ -19,5 +29,17 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/sendToChat"
+        style="@android:style/Widget.DeviceDefault.Button"
+        android:layout_width="125dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="16dp"
+        android:text="Send to Chat"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

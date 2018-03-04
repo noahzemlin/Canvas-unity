@@ -2,19 +2,19 @@ package men.cbgg.gtdapp.ListViewRows;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.UUID;
 
 public class Task implements Serializable {
 
     private static int lastId = -1;
 
-    public int id;
+    public long id;
     public String name;
     public String description;
-    private Date date;
+    public String date;
 
     public Task() {
-        lastId += 1;
-        this.id = lastId;
+        this.id = UUID.randomUUID().getLeastSignificantBits();
     }
 
     public Task(String name) {
@@ -22,18 +22,10 @@ public class Task implements Serializable {
         this.name = name;
     }
 
-    public Task(String name, Date date) {
+    public Task(String name, String date) {
         this();
         this.name = name;
         this.date = date;
-    }
-
-    public Date getDate() {
-        return (Date) date.clone();
-    }
-
-    public void setDate(Date date) {
-        this.date = (Date) date.clone();
     }
 
     @Override
