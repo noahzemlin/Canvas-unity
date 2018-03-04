@@ -1,4 +1,4 @@
-package men.cbgg.gtdapp;
+package men.cbgg.gtdapp.Storage;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -21,6 +21,8 @@ public class TaskCache {
         _instance.list.add(task);
         _instance.listAdapter.addTask(task);
 
+        Storage.setTasks(_instance.list);
+        Storage.writeFile();
     }
 
     public static ArrayList<Task> getTasks() {
@@ -38,6 +40,8 @@ public class TaskCache {
                 _instance.list.remove(i);
             }
         }
+        Storage.setTasks(_instance.list);
+        Storage.writeFile();
     }
 
     public static Task getTaskById(int id) {

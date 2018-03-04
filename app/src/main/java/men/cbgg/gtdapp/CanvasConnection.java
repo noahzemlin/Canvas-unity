@@ -56,7 +56,9 @@ public class CanvasConnection {
         return returncourses;
     }
 
-    public static ArrayList<Assignment> getAssignemnts(String courseID) {
+    public static ArrayList<Assignment> getAssignments(String courseID) {
+
+
 
         AssignmentReader ar = apiFactory.getReader(AssignmentReader.class, oauthToken);
         ListCourseAssignmentsOptions opts = new ListCourseAssignmentsOptions(courseID);

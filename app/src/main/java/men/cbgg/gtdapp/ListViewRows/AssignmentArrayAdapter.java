@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 import edu.ksu.canvas.model.assignment.Assignment;
 import men.cbgg.gtdapp.R;
-import men.cbgg.gtdapp.TaskCache;
+import men.cbgg.gtdapp.Storage.TaskCache;
 
 public class AssignmentArrayAdapter extends ArrayAdapter {
 

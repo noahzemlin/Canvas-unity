@@ -1,6 +1,5 @@
 package men.cbgg.gtdapp;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,7 +14,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.io.FileNotFoundException;
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -24,8 +22,11 @@ import men.cbgg.gtdapp.ListViewRows.ClassArrayAdapter;
 import men.cbgg.gtdapp.ListViewRows.Task;
 import men.cbgg.gtdapp.ListViewRows.TaskArrayAdapter;
 import men.cbgg.gtdapp.Storage.Storage;
+import men.cbgg.gtdapp.Storage.TaskCache;
 
 public class MainActivity extends AppCompatActivity {
+
+    public static MainActivity mainActivity;
 
     private TextView mTextMessage;
 
@@ -65,13 +66,21 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        try {
-            Storage.readFile(openFileInput("GTDStorage"));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        mainActivity = this;
 
         CanvasConnection.init();
+
+        // Create ArrayAdapter using the planet list.
+        listAdapter = new TaskArrayAdapter(this);
+
+        TaskCache.init(listAdapter);
+
+        Storage.readFile();
+
+        ArrayList<Task> tasks = Storage.getTasks();
+        for (Task task : tasks) {
+            TaskCache.addTask(task);
+        }
 
         setContentView(R.layout.main);
 
@@ -94,11 +103,6 @@ public class MainActivity extends AppCompatActivity {
         chatpage = findViewById(R.id.chatpage);
 
         mainList = (ListView) findViewById( R.id.mainList );
-
-        // Create ArrayAdapter using the planet list.
-        listAdapter = new TaskArrayAdapter(this);
-
-        TaskCache.init(listAdapter);
 
         ArrayList<Course> classes = CanvasConnection.getUserCourses();
 

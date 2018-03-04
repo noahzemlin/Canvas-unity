@@ -23,7 +23,7 @@ public class ViewCourse extends AppCompatActivity {
 
         courseId = getIntent().getStringExtra("id");
 
-        ArrayList<Assignment> assignments = CanvasConnection.getAssignemnts(courseId);
+        ArrayList<Assignment> assignments = CanvasConnection.getAssignments(courseId);
 
         ListView assList = findViewById(R.id.assignmentList);
 
