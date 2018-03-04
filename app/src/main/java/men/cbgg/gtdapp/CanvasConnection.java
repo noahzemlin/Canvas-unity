@@ -62,6 +62,7 @@ public class CanvasConnection {
 
         AssignmentReader ar = apiFactory.getReader(AssignmentReader.class, oauthToken);
         ListCourseAssignmentsOptions opts = new ListCourseAssignmentsOptions(courseID);
+        opts.bucketFilter(ListCourseAssignmentsOptions.Bucket.FUTURE);
         ArrayList<Assignment> returnassigns = new ArrayList<Assignment>();
         try {
             ArrayList<Assignment> assigns = (ArrayList<Assignment>) ar.listCourseAssignments(opts);

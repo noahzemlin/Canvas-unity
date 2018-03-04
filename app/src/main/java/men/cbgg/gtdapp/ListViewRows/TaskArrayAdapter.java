@@ -16,8 +16,6 @@ import men.cbgg.gtdapp.R;
 
 public class TaskArrayAdapter extends ArrayAdapter {
 
-    DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-
     //to reference the Activity
     private Activity context;
 
@@ -38,8 +36,8 @@ public class TaskArrayAdapter extends ArrayAdapter {
         View rowView=inflater.inflate(R.layout.taskrow, null,true);
 
         //this code gets references to objects in the listview_row.xml file
-        TextView nameField = (TextView) rowView.findViewById(R.id.rowName);
-        TextView dateField = (TextView) rowView.findViewById(R.id.rowDate);
+        TextView nameField = rowView.findViewById(R.id.rowName);
+        TextView dateField = rowView.findViewById(R.id.rowDate);
 
         //this code sets the values of the objects to values from the arrays
         nameField.setText(((Task)getItem(position)).name);
@@ -51,8 +49,6 @@ public class TaskArrayAdapter extends ArrayAdapter {
 
     public void deleteTask(Task task) {
         for (int i=0; i<getCount(); i++) {
-            Log.d("deleteTask", ((Task)getItem(i)).name);
-            Log.d("deleteTask2", task.name);
             if (getItem(i) == task) {
                 remove(task);
                 break;

@@ -46,7 +46,7 @@ public class AssignmentArrayAdapter extends ArrayAdapter {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TaskCache.addTask(new Task(ass.getName(), ass.getDueAt().toString()));
+                TaskCache.addTask(new Task(ass.getName(), ass.getDueAt() == null ? "Undated" : ass.getDueAt().toString()));
                 button.setVisibility(View.GONE);
             }
         });

@@ -34,8 +34,12 @@ public class ViewTask extends AppCompatActivity {
 
         long id = getIntent().getLongExtra("id", -1);
         task = TaskCache.getTaskById(id);
+
         TextView nameItem = findViewById(R.id.taskTitle);
         nameItem.setText(task.name);
+
+        TextView dateItem = findViewById(R.id.dateDisplay);
+        dateItem.setText(task.date);
 
         Button deleteButton = findViewById(R.id.deleteButton);
         deleteButton.setOnClickListener(new View.OnClickListener() {
@@ -69,25 +73,6 @@ public class ViewTask extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 task.name = s.toString();
-                TaskCache.deleteTask(task.id);
-                TaskCache.addTask(task);
-            }
-        });
-
-        ((EditText)findViewById(R.id.dateDisplay)).addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                task.date = s.toString();
                 TaskCache.deleteTask(task.id);
                 TaskCache.addTask(task);
             }

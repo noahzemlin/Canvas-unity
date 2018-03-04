@@ -42,9 +42,13 @@ public class ChatArrayAdapter extends ArrayAdapter {
             nameField.setText(message.name);
             messageField.setText(message.message);
         } else {
-            nameField.setText("");
+            nameField.setText("You");
             messageField.setText(message.message);
 
+            ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) nameField.getLayoutParams();
+            params.leftMargin = params.rightMargin; params.rightMargin = 16;
+
+            nameField.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
             messageField.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
         }
 

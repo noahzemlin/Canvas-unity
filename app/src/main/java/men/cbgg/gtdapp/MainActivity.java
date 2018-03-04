@@ -17,11 +17,18 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import org.threeten.bp.DateTimeUtils;
+import org.threeten.bp.Instant;
+import org.threeten.bp.ZoneId;
 import org.threeten.bp.ZonedDateTime;
 
 import java.io.FileNotFoundException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.SimpleTimeZone;
 
 import edu.ksu.canvas.model.Course;
 import men.cbgg.gtdapp.ListViewRows.ChatArrayAdapter;
@@ -103,9 +110,14 @@ public class MainActivity extends AppCompatActivity {
         mainTaskButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                Calendar date = new GregorianCalendar(2018, 2, (int)(Math.random() * 30+1));
+                SimpleDateFormat format1 = new SimpleDateFormat("EEE, MMM dd hh:mm a");
+
+
                 TaskCache.addTask(new Task(
                         "Task #" + (int)(Math.random() * 50 + 1),
-                        new Date(118, 2, (int)(Math.random() * 30)+1).toString()
+                        format1.format(date.getTime())
                 ));
             }
         });
